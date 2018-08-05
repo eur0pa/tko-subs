@@ -1,74 +1,74 @@
-name,cname,string,http
-acquia,acquia-test.co,The site you are looking for could not be found,false
-acquia,acquia.com,If you are an Acquia Cloud customer and expect to see your site at this address,false
-activecampaign,activehosted.com,LIGHTTPD - fly light,false
-aftership,aftership.com,The page you're looking for,false
-aha,ideas.aha.io,There is no portal here,false
-amazonaws,amazonaws.com,NoSuchBucket,false
-amazonaws,amazonaws.com,The specified bucket does not exist,false
-azure,azurewebsites.net,404 Web Site not found,false
-azure,cloudapp.net,404 Web Site not found,false
-azure,trafficmanager.net,404 Web Site not found,false
-bigcartel,bigcartel.com,<h1>Oops! We couldn,false
-bitbucket,bitbucket.io,Repository not found,true
-bitbucket,bitbucket.org,The page you have requested does not exist,true
-brightcove,bcvp0rtal.com,Error Code: 404,false
-brightcove,brigtcovegallery.com,Error Code: 404,false
-brightcove,gallery.video,Error Code: 404,false
-campaignmonitor,createsend.com,Double check the URL,false
-cargocollective,cargocollective.com,If you're moving your domain away from Cargo,false
-cloudfront,cloudfront.net,The request could not be satisfied,false
-desk,desk.com,Please try again or try Desk.com free for 14 days.,false
-desk,desk.com,We Couldn't Find That Page,false
-fastly,fastly.net,Fastly error: unknown domain,false
-fastly,fastly.net,Please check that this domain has been added to a service,false
-feedpress,redirect.feedpress.me,The feed has not been found,false
-freshdesk,freshdesk.com,May be this is still fresh!,false
-getresponse,gr8.com,With GetResponse Landing Pages,false
-ghost,ghost.io,The thing you were looking for is no longer here,false
-github,github,For root URLs (like http://example.com/) you must provide an index.html file,false
-github,github,There isn't a GitHub Pages site here.,false
-helpjuice,helpjuice.com,We could not find what you're looking for.,false
-helpscout,helpscoutdocs.com,No settings were found for this company:,false
-heroku,heroku,<title>No such app</title>,true
-heroku,heroku,There's nothing here,true
-instapage,instapage.com,You've Discovered A Missing Link. Our Apologies!,false
-instapage,pageserve.co,You've Discovered A Missing Link. Our Apologies!,false
-intercom,custom.intercom.help,This page is reserved for,false
-jetbrains,myjetbrains.com,is not a registered InCloud YouTrack,false
-kajabi,endpoint.mykajabi.com,The page you were looking for,false
-mashery,mashery.com,Unrecognized domain,false
-pantheon,pantheonsite.io,The gods are wise,false
-pingdom,stats.pingdom.com,pingdom,false
-proposify,proposify.biz,If you need immediate assistance,false
-shopify,myshopify.com,Only one step left!,false
-shopify,myshopify.com,this shop is currently unavailable,false
-simplebooklet,simplebooklet.com,We can't find this,false
-smartling,smartling.com,Domain is not configured,false
-squarespace,squarespace.com,Website Expired,false
-squarespace,squarespace.com,You're Almost There...,false
-squarespace,squarespace.com,is not available,false
-statuspage,statuspage.io,Better Status Communication,false
-statuspage,statuspage.io,You are being ,false
-surge,surge.sh,project not found,false
-surveygizmo,privatedomain.sgizmo.com,data-html-name,false
-surveygizmo,privatedomain.sgizmoca.com,data-html-name,false
-surveygizmo,privatedomain.surveygizmo.eu,data-html-name,false
-tave,clientaccess.tave.com,Error 404: Page Not Found,false
-teamwork,teamwork.com,We didn't find your site.,false
-thinkific,thinkific.com,You may have mistyped the address,false
-tictail,tictail.com,Building a brand of your own?,true
-tilda,tilda.ws,Domain has been assigned,false
-tumblr,tumblr.com,There's nothing here.,true
-tumblr,tumblr.com,Whatever you were looking for doesn't currently exist at this address,true
-unbounce,unbouncepages.com,The requested URL / was not found on this server.,false
-uservoice,uservoice.com,This UserVoice subdomain is currently available!,false
-vend,vendecommerce.com,Looks like you've traveled,false
-vimeo,vimeopro.com,not found,false
-webflow,proxy.webflow.io,The page you're looking for,false
-wishpond,wishpond.com,404?campaign=true,false
-wordpress,wordpress,Domain mapping upgrade for this domain not found,false
-wordpress,wordpress.com,Do you want to register,false
-wpengine,wpengine.com,The site you were looking for couldn't be found,false
-wpengine,wpengine.com,The site you were looking for is no longer available at this IP address,false
-zendesk,zendesk.com,<title>Help Center Closed | Zendesk</title>,false
+name,cname,string
+acquia,acquia-test.co,The site you are looking for could not be found
+acquia,acquia.com,If you are an Acquia Cloud customer and expect to see your site at this address
+activecampaign,activehosted.com,LIGHTTPD - fly light
+aftership,aftership.com,The page you're looking for
+aha,ideas.aha.io,There is no portal here
+amazonaws,amazonaws.com,NoSuchBucket
+amazonaws,amazonaws.com,The specified bucket does not exist
+azure,azurewebsites.net,404 Web Site not found
+azure,cloudapp.net,404 Web Site not found
+azure,trafficmanager.net,404 Web Site not found
+bigcartel,bigcartel.com,<h1>Oops! We couldn
+bitbucket,bitbucket.io,Repository not found
+bitbucket,bitbucket.org,The page you have requested does not exist
+brightcove,bcvp0rtal.com,Error Code: 404
+brightcove,brigtcovegallery.com,Error Code: 404
+brightcove,gallery.video,Error Code: 404
+campaignmonitor,createsend.com,Double check the URL
+cargocollective,cargocollective.com,If you're moving your domain away from Cargo
+cloudfront,cloudfront.net,The request could not be satisfied
+desk,desk.com,Please try again or try Desk.com free for 14 days.
+desk,desk.com,We Couldn't Find That Page
+fastly,fastly.net,Fastly error: unknown domain
+fastly,fastly.net,Please check that this domain has been added to a service
+feedpress,redirect.feedpress.me,The feed has not been found
+freshdesk,freshdesk.com,May be this is still fresh!
+getresponse,gr8.com,With GetResponse Landing Pages
+ghost,ghost.io,The thing you were looking for is no longer here
+github,github,For root URLs (like http://example.com/) you must provide an index.html file
+github,github,There isn't a GitHub Pages site here.
+helpjuice,helpjuice.com,We could not find what you're looking for.
+helpscout,helpscoutdocs.com,No settings were found for this company:
+heroku,heroku,<title>No such app</title>
+heroku,heroku,There's nothing here
+instapage,instapage.com,You've Discovered A Missing Link. Our Apologies!
+instapage,pageserve.co,You've Discovered A Missing Link. Our Apologies!
+intercom,custom.intercom.help,This page is reserved for
+jetbrains,myjetbrains.com,is not a registered InCloud YouTrack
+kajabi,endpoint.mykajabi.com,The page you were looking for
+mashery,mashery.com,Unrecognized domain
+pantheon,pantheonsite.io,The gods are wise
+pingdom,stats.pingdom.com,pingdom
+proposify,proposify.biz,If you need immediate assistance
+shopify,myshopify.com,Only one step left!
+shopify,myshopify.com,this shop is currently unavailable
+simplebooklet,simplebooklet.com,We can't find this
+smartling,smartling.com,Domain is not configured
+squarespace,squarespace.com,Website Expired
+squarespace,squarespace.com,You're Almost There...
+squarespace,squarespace.com,is not available
+statuspage,statuspage.io,Better Status Communication
+statuspage,statuspage.io,You are being 
+surge,surge.sh,project not found
+surveygizmo,privatedomain.sgizmo.com,data-html-name
+surveygizmo,privatedomain.sgizmoca.com,data-html-name
+surveygizmo,privatedomain.surveygizmo.eu,data-html-name
+tave,clientaccess.tave.com,Error 404: Page Not Found
+teamwork,teamwork.com,We didn't find your site.
+thinkific,thinkific.com,You may have mistyped the address
+tictail,tictail.com,Building a brand of your own?
+tilda,tilda.ws,Domain has been assigned
+tumblr,tumblr.com,There's nothing here.
+tumblr,tumblr.com,Whatever you were looking for doesn't currently exist at this address
+unbounce,unbouncepages.com,The requested URL / was not found on this server.
+uservoice,uservoice.com,This UserVoice subdomain is currently available!
+vend,vendecommerce.com,Looks like you've traveled
+vimeo,vimeopro.com,not found
+webflow,proxy.webflow.io,The page you're looking for
+wishpond,wishpond.com,404?campaign=true
+wordpress,wordpress,Domain mapping upgrade for this domain not found
+wordpress,wordpress.com,Do you want to register
+wpengine,wpengine.com,The site you were looking for couldn't be found
+wpengine,wpengine.com,The site you were looking for is no longer available at this IP address
+zendesk,zendesk.com,<title>Help Center Closed | Zendesk</title>

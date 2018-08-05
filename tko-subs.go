@@ -23,10 +23,9 @@ import (
 )
 
 type CMS struct {
-	Name     string `csv:"name"`
-	CName    string `csv:"cname"`
-	String   string `csv:"string"`
-	OverHTTP string `csv:"http"`
+	Name   string `csv:"name"`
+	CName  string `csv:"cname"`
+	String string `csv:"string"`
 }
 
 type DomainScan struct {
@@ -43,6 +42,7 @@ type Configuration struct {
 	outputFilePath  *string
 	domain          *string
 	threadCount     *int
+	deadRecordCheck *bool
 }
 
 func main() {
@@ -51,7 +51,8 @@ func main() {
 		recordsFilePath: flag.String("data", "providers-data.csv", "CSV file containing CMS providers' string for identification"),
 		outputFilePath:  flag.String("output", "output.csv", "Output file to save the results"),
 		domain:          flag.String("domain", "", "Domains separated by ,"),
-		threadCount:     flag.Int("threads", 5, "Number of threads to run parallel")}
+		threadCount:     flag.Int("threads", 5, "Number of threads to run parallel"),
+		deadRecordCheck: flag.Bool("dead-records", false, "Check for Dead DNS records too")}
 	flag.Parse()
 
 	cmsRecords := loadProviders(*config.recordsFilePath)
@@ -62,9 +63,7 @@ func main() {
 			scanResults, err := scanDomain(domain, cmsRecords, config)
 			if err == nil {
 				allResults = append(allResults, scanResults...)
-			} /* else {
-				fmt.Printf("[%s] Domain problem : %s\n", domain, err)
-			}*/
+			}
 		}
 	} else {
 		domainsFile, err := os.Open(*config.domainsFilePath)
@@ -311,7 +310,7 @@ func checkCnameAgainstProviders(domain string, cname string, cmsRecords []*CMS, 
 	for _, cmsRecord := range cmsRecords {
 		usesprovider, _ := regexp.MatchString(cmsRecord.CName, cname)
 		if usesprovider {
-			scanResult := evaluateDomainProvider(domain, cname, cmsRecord, client)
+			scanResult := evaluateDomainProvider(domain, cname, cmsRecord, client, config)
 			scanResults = append(scanResults, scanResult)
 		}
 	}
@@ -321,27 +320,30 @@ func checkCnameAgainstProviders(domain string, cname string, cmsRecords []*CMS, 
 //If there is a CNAME and can't curl it, we will assume its vulnerable
 //If we can curl it, we will regex match the string obtained in the response with
 //the string specified in the data providers file to see if its vulnerable or not
-func evaluateDomainProvider(domain string, cname string, cmsRecord *CMS, client *http.Client) DomainScan {
+func evaluateDomainProvider(domain string, cname string, cmsRecord *CMS, client *http.Client, config Configuration) DomainScan {
 	scanResult := DomainScan{Domain: domain, Cname: cname,
 		IsVulnerable: false, Provider: cmsRecord.Name}
-	protocol := "https://"
-	if cmsRecord.OverHTTP == "true" {
-		protocol = "http://"
-	}
-	response, err := client.Get(protocol + scanResult.Domain)
 
-	if err != nil {
-		scanResult.IsVulnerable = true
-		scanResult.Response = "Can't CURL it but dig shows a dead DNS record"
+	httpResponse, err := client.Get(fmt.Sprintf("http://%s", scanResult.Domain))
+	httpsResponse, err1 := client.Get(fmt.Sprintf("https://%s", scanResult.Domain))
+
+	if err != nil && err1 != nil {
+		if *config.deadRecordCheck {
+			scanResult.IsVulnerable = true
+			scanResult.Response = "Can't CURL it but dig shows a dead DNS record"
+		}
 	} else if err == nil {
-		text, err := ioutil.ReadAll(response.Body)
-		if err != nil {
+		text, err := ioutil.ReadAll(httpResponse.Body)
+		text2, err2 := ioutil.ReadAll(httpsResponse.Body)
+		if err != nil && err2 != nil {
 			scanResult.Response = err.Error()
 		} else {
-			scanResult.IsVulnerable, err = regexp.MatchString(cmsRecord.String, string(text))
-			if err != nil {
+			_, err := regexp.MatchString(cmsRecord.String, string(text))
+			_, err2 := regexp.MatchString(cmsRecord.String, string(text2))
+			if err != nil && err2 != nil {
 				scanResult.Response = err.Error()
 			} else {
+				scanResult.IsVulnerable = true
 				scanResult.Response = cmsRecord.String
 			}
 		}
