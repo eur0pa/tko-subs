@@ -18,8 +18,8 @@ brightcove,gallery.video,Error Code: 404
 campaignmonitor,createsend.com,Double check the URL
 cargocollective,cargocollective.com,If you're moving your domain away from Cargo
 cloudfront,cloudfront.net,The request could not be satisfied
-desk,desk.com,Please try again or try Desk.com free for 14 days.
-desk,desk.com,We Couldn't Find That Page
+desk,.desk.com,Please try again or try Desk.com free for 14 days.
+desk,.desk.com,We Couldn't Find That Page
 fastly,fastly.net,Fastly error: unknown domain
 fastly,fastly.net,Please check that this domain has been added to a service
 feedpress,redirect.feedpress.me,The feed has not been found
@@ -69,6 +69,5 @@ webflow,proxy.webflow.io,The page you're looking for
 wishpond,wishpond.com,404?campaign=true
 wordpress,wordpress,Domain mapping upgrade for this domain not found
 wordpress,wordpress.com,Do you want to register
-wpengine,wpengine.com,The site you were looking for couldn't be found
-wpengine,wpengine.com,The site you were looking for is no longer available at this IP address
-zendesk,zendesk.com,<title>Help Center Closed | Zendesk</title>
+wpengine,wpengine.com,The site you were looking for
+zendesk,zendesk.com,Help Center Closed
