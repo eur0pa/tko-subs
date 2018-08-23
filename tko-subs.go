@@ -139,11 +139,13 @@ func scanDomain(domain string, cmsRecords []*CMS, config Configuration) ([]Domai
 	}
 
 	// Check if the domain has a dead DNS record, as in it's pointing to a CNAME that doesn't exist
-	if exists, err := resolves(cname); !exists {
-		scanResult := DomainScan{Domain: domain, Cname: cname, IsVulnerable: true, Response: "Dead DNS record"}
-		return []DomainScan{scanResult}, nil
-	} else if err != nil {
-		return nil, err
+	if *config.deadRecordCheck {
+		if exists, err := resolves(cname); !exists {
+			scanResult := DomainScan{Domain: domain, Cname: cname, IsVulnerable: true, Response: "Dead DNS record"}
+			return []DomainScan{scanResult}, nil
+		} else if err != nil {
+			return nil, err
+		}
 	}
 
 	scanResults := checkCnameAgainstProviders(domain, cname, cmsRecords, config)
@@ -310,8 +312,11 @@ func checkCnameAgainstProviders(domain string, cname string, cmsRecords []*CMS, 
 	for _, cmsRecord := range cmsRecords {
 		usesprovider, _ := regexp.MatchString(cmsRecord.CName, cname)
 		if usesprovider {
-			scanResult := evaluateDomainProvider(domain, cname, cmsRecord, client, config)
-			scanResults = append(scanResults, scanResult)
+			res, str := evaluateDomainProvider(domain, cname, cmsRecord, client, config)
+			if res {
+				scanResult := DomainScan{Domain: domain, Cname: cname, IsVulnerable: res, Provider: cmsRecord.CName, Response: str}
+				scanResults = append(scanResults, scanResult)
+			}
 		}
 	}
 	return scanResults
@@ -320,35 +325,31 @@ func checkCnameAgainstProviders(domain string, cname string, cmsRecords []*CMS, 
 //If there is a CNAME and can't curl it, we will assume its vulnerable
 //If we can curl it, we will regex match the string obtained in the response with
 //the string specified in the data providers file to see if its vulnerable or not
-func evaluateDomainProvider(domain string, cname string, cmsRecord *CMS, client *http.Client, config Configuration) DomainScan {
-	scanResult := DomainScan{Domain: domain, Cname: cname,
-		IsVulnerable: false, Provider: cmsRecord.Name}
-
-	httpResponse, err := client.Get(fmt.Sprintf("http://%s", scanResult.Domain))
-	httpsResponse, err1 := client.Get(fmt.Sprintf("https://%s", scanResult.Domain))
+func evaluateDomainProvider(domain string, cname string, cmsRecord *CMS, client *http.Client, config Configuration) (bool, string) {
+	httpResponse, err := client.Get(fmt.Sprintf("http://%s", domain))
+	httpsResponse, err1 := client.Get(fmt.Sprintf("https://%s", domain))
 
 	if err != nil && err1 != nil {
 		if *config.deadRecordCheck {
-			scanResult.IsVulnerable = true
-			scanResult.Response = "Can't CURL it but dig shows a dead DNS record"
+			return true, "Can't CURL it but dig shows a dead DNS record"
 		}
-	} else if err == nil {
+	} else if err == nil && err1 == nil {
 		text, err := ioutil.ReadAll(httpResponse.Body)
 		text2, err2 := ioutil.ReadAll(httpsResponse.Body)
 		if err != nil && err2 != nil {
-			scanResult.Response = err.Error()
+			return false, err.Error()
 		} else {
-			_, err := regexp.MatchString(cmsRecord.String, string(text))
-			_, err2 := regexp.MatchString(cmsRecord.String, string(text2))
+			x, err := regexp.MatchString(cmsRecord.String, string(text))
+			y, err2 := regexp.MatchString(cmsRecord.String, string(text2))
 			if err != nil && err2 != nil {
-				scanResult.Response = err.Error()
-			} else {
-				scanResult.IsVulnerable = true
-				scanResult.Response = cmsRecord.String
+				return false, err.Error()
+			}
+			if x && y {
+				return true, cmsRecord.String
 			}
 		}
 	}
-	return scanResult
+	return false, "nope"
 }
 
 func loadProviders(recordsFilePath string) []*CMS {
